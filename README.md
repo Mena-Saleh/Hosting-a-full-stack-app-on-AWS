@@ -1,72 +1,127 @@
-# Hosting a Full-Stack Application
+# Hosting a full stack application
 
-### **You can use you own project completed in previous courses or use the provided Udagram app for completing this final project.**
+## Table of Contents
 
----
+1. Project Description 
+2. Project Steps Documentation
+3. Dependencies
+4. Scripts and Instructions
+5. Copyrights And Acknowledgements
 
-In this project you will learn how to take a newly developed Full-Stack application built for a retailer and deploy it to a cloud service provider so that it is available to customers. You will use the aws console to start and configure the services the application needs such as a database to store product information and a web server allowing the site to be discovered by potential customers. You will modify your package.json scripts and replace hard coded secrets with environment variables in your code.
+## Project Description 
 
-After the initial setup, you will learn to interact with the services you started on aws and will deploy manually the application a first time to it. As you get more familiar with the services and interact with them through a CLI, you will gradually understand all the moving parts.
+This project demonstrates and documents the hosting process of an already provided full stack web application. The web app is called Udagram, it runs a NodeJS API and a frontend that is made with AngularJS. This project utilizes AWS to host the application. EB, RDS and S3 were used to host and deploy this app. Pipeling was done with CircleCI to make the deployment process automated and headache free
 
-You will then register for a free account on CircleCi and connect your Github account to it. Based on the manual steps used to deploy the app, you will write a config.yml file that will make the process reproducible in CircleCi. You will set up the process to be executed automatically based when code is pushed on the main Github branch.
+- The website can be accessed on the following link: http://udagram-angular3416.s3-website-us-east-1.amazonaws.com 
 
-The project will also include writing documentation and runbooks covering the operations of the deployment process. Those runbooks will serve as a way to communicate with future developers and anybody involved in diagnosing outages of the Full-Stack application.
+- NOTE: Images documenting success of each and every step can be found in the Images folder (AWS - CircleCI - Diagrams).
 
-# Udagram
+- NOTE: in the Docs folder, three structured documents document the following: Project Infrastructure, App Dependencies and Pipeline Process in more details.
 
-This application is provided to you as an alternative starter project if you do not wish to host your own code done in the previous courses of this nanodegree. The udagram application is a fairly simple application that includes all the major components of a Full-Stack web application.
+## Project Steps Documentation
 
 
 
-### Dependencies
+- Steps followed in the making of this project:
 
-```
-- Node v14.15.1 (LTS) or more recent. While older versions can work it is advisable to keep node to latest LTS version
+    - RDS database was made on the AWS console to store API data.
+    - S3 bucket was made to host the frontend Angular App.
+    - EB App was made using the eb cli to deploy the API, commands that were used:
+        - eb init: to initiazlie eb app instance for the API.
+        - eb create: to create app environment.
+        - eb deploy: to deploy the API initially.
+        - eb health: to check the health of the environment.
+        - eb logs: to check logs in case there is an error in deployment.
+    - A repo was made on github to store the code of the project.
+    - CircleCI was connected to the github account and the project was set up on CircleCI.
+    - Environment Variables were added to CircleCI for a smooth deployment pipeline.
+    - Pipelining Config was adjusted to implement the Udagram workflow which does two main jobs: (documented in Images/CircleCI)
+        - Building the app.
+        - Deploying the app.
+    - Project is commited and pushed to github using git, which triggers a CircleCI workflow which deploys the app on AWS.
 
-- npm 6.14.8 (LTS) or more recent, Yarn can work but was not tested for this project
+## Dependencies And About The Project
 
-- AWS CLI v2, v1 can work but was not tested for this project
+- Amazaon Web Services Dependencies/Components:
 
-- A RDS database running Postgres.
+    - Elastic Beanstalk (EB)
+    - Simple Storage Service (S3)
+    - Relational Database Service (RDS)
+    - Identity and Access Management (IAM)
 
-- A S3 bucket for hosting uploaded pictures.
+- Pipelining Dependencies:
 
-```
+    - CircleCI
+    - Git
+    - Github
 
-### Installation
+- Project Specific Dependencies:
 
-Provision the necessary AWS services needed for running the application:
+    - NodeJS (Packages listed in package.json)
+    - AngularJS (Packages listed in package.json)
+ 
 
-1. In AWS, provision a publicly available RDS database running Postgres. <Place holder for link to classroom article>
-1. In AWS, provision a s3 bucket for hosting the uploaded files. <Place holder for tlink to classroom article>
-1. Export the ENV variables needed or use a package like [dotnev](https://www.npmjs.com/package/dotenv)/.
-1. From the root of the repo, navigate udagram-api folder `cd starter/udagram-api` to install the node_modules `npm install`. After installation is done start the api in dev mode with `npm run dev`.
-1. Without closing the terminal in step 1, navigate to the udagram-frontend `cd starter/udagram-frontend` to intall the node_modules `npm install`. After installation is done start the api in dev mode with `npm run start`.
+## Scripts and Instructions
 
-## Testing
+- Root level scripts:
 
-This project contains two different test suite: unit tests and End-To-End tests(e2e). Follow these steps to run the tests.
+    - These scripts can be found in the package.json file that is in the root directory of the repositry.
+    - They are made to provide some sort of abstraction to the proccess, where they call other scripts that are found in the API and the frontend.
+    - These scripts are directly invoked in the CircleCI config.yml file for convenience, because they are more clean and refined.
+    - Scripts:
 
-1. `cd starter/udagram-frontend`
-1. `npm run test`
-1. `npm run e2e`
+        "frontend:install": install frontend packages.
+        "frontend:start": start the Angular app locally.
+        "frontend:build": build the app in the www folder.
+        "frontend:test": run tests on the frontend app.
+        "frontend:e2e": run end point tests.
+        "frontend:lint": run a linter.
+        "frontend:deploy": deploy the app to s3.
 
-There are no Unit test on the back-end
+        "api:install": install backend packages.
+        "api:build": build the API in the www folder.
+        "api:start": run the API locally
+        "api:deploy": deploy the API to eb.
 
-### Unit Tests:
+        "deploy":  deploy both frontend and backend
+    }
 
-Unit tests are using the Jasmine Framework.
+- udagram-api scripts:
 
-### End to End Tests:
+    - Can be found in the package.json file in udagram-api folder.
+    - Scripts specific to the API:
 
-The e2e tests are using Protractor and Jasmine.
+        - "start": start the transpiled API code (production).
+        - "tsc": buils the API.
+        - "dev": start the typescript code (development)
+        - "clean": cleans the project.
+        - "deploy": deploys API to AWS eb
+        - "build": builds the API after cleaning and installing packages.
 
-## Built With
 
-- [Angular](https://angular.io/) - Single Page Application Framework
-- [Node](https://nodejs.org) - Javascript Runtime
-- [Express](https://expressjs.com/) - Javascript API Framework
+- udagram-fronted scripts:
 
-## License
+    - Can be found in the package.json file in udagram-frontend folder.
+    - Scripts specific to the frontend Angular App:
 
-[License](LICENSE.txt)
+       - "ng": Generates angular workspace
+       - "start": Runs the angular app.
+       - "build": Builds production code in www folder.
+       - "deploy": Deploys the Angular App to S3.
+       - "test": Runs tests on the app.
+       - "lint": Runs a linter.
+       - "e2e": Runs end to end testing.
+
+
+
+## Copyrights And Acknowledgements
+
+    The code for this project was provided by Udacity and I do not own any of it. The only task that was done by me is the deployment process of the application using AWS and CircleCI for pipelining and automation.
+
+    - About The Author
+        - Name: Mena Ashraf Mikhael Saleh
+        - Email: Mena.a.saleh.2001@gmail.com
+        - GitHub: https://github.com/Mena-Ibrahim
+        - LinkedIn: https://www.linkedin.com/in/mena-saleh-23b947167/
+
+
