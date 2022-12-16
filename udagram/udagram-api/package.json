@@ -7,12 +7,12 @@
   },
   "main": "server.ts",
   "scripts": {
-    "start": "node ./www/server.js",
+    "start": "node ./server.js",
     "tsc": "npx tsc",
     "dev": "npx ts-node-dev --respawn --transpile-only ./src/server.ts",
     "prod": "npx tsc && node ./www/server.js",
     "clean": "rm -rf www/ || true",
-    "deploy": "chmod +x bin/deploy.sh && bin/deploy.sh",
+    "deploy": "npm run build && eb list && eb use Udagram-env-1 && eb deploy Udagram-env-1 && chmod +x bin/deploy.sh && bin/deploy.sh",
     "build": "npm install . && npm run clean && tsc && cp -rf src/config www/config && cp -R .elasticbeanstalk www/.elasticbeanstalk && cp .npmrc www/.npmrc && cp package.json www/package.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
