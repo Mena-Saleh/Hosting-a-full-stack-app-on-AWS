@@ -12,7 +12,7 @@
 
 This project demonstrates and documents the hosting process of an already provided full stack web application. The web app is called Udagram, it runs a NodeJS API and a frontend that is made with AngularJS. This project utilizes AWS to host the application. EB, RDS and S3 were used to host and deploy this app. Pipeling was done with CircleCI to make the deployment process automated and headache free
 
-- The website can be accessed on the following link: http://udagram-angular3416.s3-website-us-east-1.amazonaws.com 
+- The website can be accessed on the following link: http://udagram-angular3416.s3-website-us-east-1.amazonaws.com (currently down)
 
 - NOTE: Images documenting success of each and every step can be found in the Images folder (AWS - CircleCI - Diagrams).
 
