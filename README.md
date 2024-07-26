@@ -121,7 +121,7 @@ This project demonstrates and documents the hosting process of an already provid
     - About The Author
         - Name: Mena Ashraf Mikhael Saleh
         - Email: Mena.a.saleh.2001@gmail.com
-        - GitHub: https://github.com/Mena-Ibrahim
+        - GitHub: https://github.com/Mena-Saleh
         - LinkedIn: https://www.linkedin.com/in/mena-saleh-23b947167/
 
 
